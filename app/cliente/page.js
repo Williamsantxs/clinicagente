@@ -6,6 +6,7 @@ import { usePerfil } from '../../lib/usePerfil'
 import { CAMPOS_CONSULTA, HORARIOS, formatarDataHora, formatarHora, formatarPreco, hojeISO } from '../../lib/formatos'
 import Cabecalho from '../../components/Cabecalho'
 import Status from '../../components/Status'
+import Faixa from '../../components/Faixa'
 
 export default function PainelCliente() {
   const perfil = usePerfil('cliente')
@@ -105,11 +106,22 @@ export default function PainelCliente() {
 
   const horariosLivres = HORARIOS.filter((horario) => !ocupados.includes(horario))
 
+  // Proxima consulta ainda por acontecer, para o aviso da faixa do topo
+  const proxima = consultas
+    .filter((c) => (c.status === 'agendada' || c.status === 'confirmada') && new Date(c.data_hora) >= new Date())
+    .sort((a, b) => new Date(a.data_hora) - new Date(b.data_hora))[0]
+
   return (
-    <>
+    <div className="pp">
       <Cabecalho perfil={perfil} />
+      <Faixa
+        rotulo="Painel do cliente"
+        titulo={'Olá, ' + perfil.nome.split(' ')[0]}
+        texto={proxima
+          ? 'Sua próxima consulta é ' + formatarDataHora(proxima.data_hora) + ', com ' + proxima.dentista.nome + '.'
+          : 'Você não tem consulta marcada. Agende a próxima no formulário abaixo.'}
+      />
       <main className="conteudo">
-        <h1>Olá, {perfil.nome.split(' ')[0]}</h1>
 
         <section className="painel">
           <h2>Agendar consulta</h2>
@@ -193,6 +205,6 @@ export default function PainelCliente() {
           )}
         </section>
       </main>
-    </>
+    </div>
   )
 }

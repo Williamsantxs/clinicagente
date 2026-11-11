@@ -7,6 +7,7 @@ import { usePerfil } from '../../lib/usePerfil'
 import { CAMPOS_CONSULTA, NOMES_STATUS, formatarDataHora, formatarPreco } from '../../lib/formatos'
 import Cabecalho from '../../components/Cabecalho'
 import Status from '../../components/Status'
+import Faixa, { Icone, iniciais } from '../../components/Faixa'
 
 const ABAS = [
   { id: 'resumo', nome: 'Resumo' },
@@ -111,10 +112,14 @@ export default function PainelAdmin() {
     .reduce((total, c) => total + Number(c.servico.preco), 0)
 
   return (
-    <>
+    <div className="pp">
       <Cabecalho perfil={perfil} />
+      <Faixa
+        rotulo="Painel do dono"
+        titulo="Administração da clínica"
+        texto="Consultas, usuários e serviços da ClinicAgente em um só lugar."
+      />
       <main className="conteudo">
-        <h1>Administração da clínica</h1>
 
         <div className="abas">
           {ABAS.map((item) => (
@@ -129,11 +134,11 @@ export default function PainelAdmin() {
         {aba === 'resumo' && (
           <>
             <div className="resumo">
-              <div className="resumo-item"><strong>{consultas.length}</strong><span>consultas no total</span></div>
-              <div className="resumo-item"><strong>{consultas.filter((c) => c.status === 'agendada' || c.status === 'confirmada').length}</strong><span>a realizar</span></div>
-              <div className="resumo-item"><strong>{contar('dentista')}</strong><span>dentistas</span></div>
-              <div className="resumo-item"><strong>{contar('cliente')}</strong><span>clientes</span></div>
-              <div className="resumo-item"><strong>{formatarPreco(faturamento)}</strong><span>em consultas concluídas</span></div>
+              <div className="resumo-item"><Icone nome="calendario" /><strong>{consultas.length}</strong><span>consultas no total</span></div>
+              <div className="resumo-item"><Icone nome="relogio" /><strong>{consultas.filter((c) => c.status === 'agendada' || c.status === 'confirmada').length}</strong><span>a realizar</span></div>
+              <div className="resumo-item"><Icone nome="dente" /><strong>{contar('dentista')}</strong><span>dentistas</span></div>
+              <div className="resumo-item"><Icone nome="pessoas" /><strong>{contar('cliente')}</strong><span>clientes</span></div>
+              <div className="resumo-item"><Icone nome="dinheiro" /><strong>{formatarPreco(faturamento)}</strong><span>em consultas concluídas</span></div>
             </div>
             <section className="painel">
               <h2>Como este painel funciona</h2>
@@ -191,7 +196,12 @@ export default function PainelAdmin() {
                 <tbody>
                   {usuarios.map((usuario) => (
                     <tr key={usuario.id}>
-                      <td>{usuario.nome}</td>
+                      <td>
+                        <span className="celula-nome">
+                          <span className={'avatar avatar-' + usuario.papel} aria-hidden="true">{iniciais(usuario.nome)}</span>
+                          {usuario.nome}
+                        </span>
+                      </td>
                       <td>{usuario.email}</td>
                       <td>{usuario.telefone || '-'}</td>
                       <td>
@@ -264,6 +274,6 @@ export default function PainelAdmin() {
           </section>
         )}
       </main>
-    </>
+    </div>
   )
 }

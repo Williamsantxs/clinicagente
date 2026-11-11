@@ -4,9 +4,10 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { usePerfil } from '../../lib/usePerfil'
-import { CAMPOS_CONSULTA, formatarDataHora } from '../../lib/formatos'
+import { CAMPOS_CONSULTA, formatarDataHora, formatarDiaMes } from '../../lib/formatos'
 import Cabecalho from '../../components/Cabecalho'
 import Status from '../../components/Status'
+import Faixa, { Icone } from '../../components/Faixa'
 
 export default function PainelDentista() {
   const perfil = usePerfil('dentista')
@@ -50,16 +51,21 @@ export default function PainelDentista() {
   const visiveis = filtro === 'proximas' ? ativas : consultas
 
   return (
-    <>
+    <div className="pp">
       <Cabecalho perfil={perfil} />
+      <Faixa
+        rotulo={'Painel do dentista' + (perfil.especialidade ? ' · ' + perfil.especialidade : '')}
+        titulo="Minha agenda"
+        texto={ativas.length === 0
+          ? 'Nenhuma consulta a atender no momento.'
+          : ativas.length === 1 ? 'Você tem 1 consulta a atender.' : 'Você tem ' + ativas.length + ' consultas a atender.'}
+      />
       <main className="conteudo">
-        <h1>Minha agenda</h1>
-        {perfil.especialidade && <p className="subtitulo">{perfil.especialidade}</p>}
 
         <div className="resumo">
-          <div className="resumo-item"><strong>{ativas.length}</strong><span>a atender</span></div>
-          <div className="resumo-item"><strong>{consultas.filter((c) => c.status === 'concluida').length}</strong><span>concluídas</span></div>
-          <div className="resumo-item"><strong>{consultas.filter((c) => c.status === 'cancelada').length}</strong><span>canceladas</span></div>
+          <div className="resumo-item"><Icone nome="relogio" /><strong>{ativas.length}</strong><span>a atender</span></div>
+          <div className="resumo-item"><Icone nome="certo" /><strong>{consultas.filter((c) => c.status === 'concluida').length}</strong><span>concluídas</span></div>
+          <div className="resumo-item"><Icone nome="cancelado" /><strong>{consultas.filter((c) => c.status === 'cancelada').length}</strong><span>canceladas</span></div>
         </div>
 
         <div className="abas">
@@ -76,7 +82,11 @@ export default function PainelDentista() {
             {visiveis.map((consulta) => (
               <article key={consulta.id} className="painel consulta">
                 <div className="consulta-topo">
-                  <div>
+                  <div className="selo-data" aria-hidden="true">
+                    <b>{formatarDiaMes(consulta.data_hora).dia}</b>
+                    <span>{formatarDiaMes(consulta.data_hora).mes}</span>
+                  </div>
+                  <div className="consulta-dados">
                     <strong>{formatarDataHora(consulta.data_hora)}</strong>
                     <p>{consulta.servico.nome} · {consulta.servico.duracao_min} min</p>
                     <p>Paciente: {consulta.cliente.nome}{consulta.cliente.telefone ? ' · ' + consulta.cliente.telefone : ''}</p>
@@ -110,6 +120,6 @@ export default function PainelDentista() {
           </div>
         )}
       </main>
-    </>
+    </div>
   )
 }

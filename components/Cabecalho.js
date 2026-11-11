@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { supabase } from '../lib/supabase'
 import Logo from './Logo'
+import { iniciais } from './Faixa'
 
 const NOMES_PAPEL = { admin: 'Administrador', dentista: 'Dentista', cliente: 'Cliente' }
 
@@ -18,6 +19,7 @@ export default function Cabecalho({ perfil }) {
     <header className="cabecalho">
       <Logo />
       <div className="cabecalho-usuario">
+        <span className="avatar" aria-hidden="true">{iniciais(perfil.nome)}</span>
         <div>
           <strong>{perfil.nome}</strong>
           <span className={'etiqueta papel-' + perfil.papel}>{NOMES_PAPEL[perfil.papel]}</span>

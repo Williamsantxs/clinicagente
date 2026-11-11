@@ -341,3 +341,115 @@ td select, td input { min-width: 130px; }
   .lp-agenda { rotate: none; }
   .lp .cabecalho-usuario a:not(.botao) { display: none; }
 }
+
+/* =====================================================================
+   PAINEIS (cliente, dentista e dono). Tudo dentro da classe "pp".
+   So aparencia: nenhuma regra daqui muda o funcionamento.
+   ===================================================================== */
+.pp {
+  --coral: #e2705a;
+  --titulo: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  min-height: 100vh;
+  background: #f3f8f7;
+}
+.pp h1, .pp h2 { font-family: var(--titulo); font-weight: 600; letter-spacing: -0.01em; }
+.pp h2 { font-size: 1.35rem; }
+.pp .cabecalho { position: sticky; top: 0; z-index: 5; }
+
+/* Circulo com as iniciais do usuario */
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--verde);
+  color: var(--branco);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.avatar-admin { background: #5b21b6; }
+.avatar-cliente { background: #0b6aa2; }
+.celula-nome { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--tinta); }
+
+/* ---------- Faixa do topo ---------- */
+.faixa { background: linear-gradient(120deg, #0d5f58, var(--verde) 55%, #17988d); color: #d7f0ec; overflow: hidden; }
+.faixa-conteudo {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+.faixa-rotulo { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #9fe0d7; margin-bottom: 8px; }
+.pp .faixa h1 { color: var(--branco); font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 8px; }
+.faixa-texto { margin: 0; max-width: 52ch; font-size: 1.05rem; }
+.faixa-arcada { position: absolute; right: 24px; bottom: -90px; width: 300px; height: auto; }
+.faixa-arcada rect { fill: rgba(255, 255, 255, 0.1); stroke: rgba(255, 255, 255, 0.4); stroke-width: 1.5; }
+
+/* Espaco entre a faixa e o conteudo */
+.pp .conteudo { padding-top: 28px; }
+.pp .abas { margin-top: 0; }
+
+/* ---------- Caixas ---------- */
+.pp .painel, .pp .resumo-item {
+  border-color: #dfe9e8;
+  border-radius: 16px;
+  box-shadow: 0 16px 32px -26px rgba(13, 43, 46, 0.55);
+}
+.pp .painel { padding: 24px; }
+
+/* Numeros do resumo, com icone */
+.pp .resumo-item { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; padding: 18px; }
+.pp .resumo-item .icone { grid-row: span 2; width: 44px; height: 44px; padding: 10px; border-radius: 12px; background: var(--verde-claro); color: var(--verde); }
+.pp .resumo-item strong { font-family: var(--titulo); font-size: 1.7rem; line-height: 1.1; }
+.icone { width: 22px; height: 22px; flex: none; }
+
+/* Abas em formato de pilula */
+.pp .abas { border-bottom: 0; gap: 8px; margin: 20px 0; }
+.pp .aba { border: 1px solid #cfdedc; border-radius: 999px; background: var(--branco); padding: 8px 18px; transition: background 0.15s, color 0.15s; }
+.pp .aba:hover { background: var(--verde-claro); }
+.pp .aba-ativa { background: var(--verde); border-color: var(--verde); color: var(--branco); }
+.pp .aba-ativa:hover { background: var(--verde-escuro); }
+
+/* Tabelas */
+.pp th { background: #f3f8f7; border-bottom: 0; }
+.pp th:first-child { border-radius: 10px 0 0 10px; }
+.pp th:last-child { border-radius: 0 10px 10px 0; }
+.pp tbody tr { transition: background 0.15s; }
+.pp tbody tr:hover { background: #f7fbfa; }
+.pp tbody tr:last-child td { border-bottom: 0; }
+
+/* Campos e botoes */
+.pp input, .pp select, .pp textarea { border-color: #c5d6d4; transition: border-color 0.15s, box-shadow 0.15s; }
+.pp input:hover, .pp select:hover, .pp textarea:hover { border-color: var(--verde); }
+.pp .botao { transition: background 0.15s, translate 0.15s; }
+.pp .botao:active { translate: 0 1px; }
+
+/* ---------- Cartao de consulta do dentista ---------- */
+.pp .consulta { padding: 20px; border-left: 4px solid var(--verde); }
+.pp .consulta-topo { justify-content: flex-start; gap: 16px; }
+.consulta-dados { flex: 1; min-width: 0; }
+.selo-data {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 62px;
+  flex: none;
+  border-radius: 12px;
+  background: var(--verde-claro);
+  color: var(--verde-escuro);
+  line-height: 1;
+}
+.selo-data b { font-family: var(--titulo); font-size: 1.5rem; align-self: end; }
+.selo-data span { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; align-self: start; margin-top: 3px; }
+
+@media (max-width: 700px) {
+  .faixa-arcada { display: none; }
+  .faixa-conteudo { padding: 28px 16px 32px; }
+}

@@ -192,3 +192,152 @@ td select, td input { min-width: 130px; }
   .conteudo { padding: 24px 16px 48px; }
   .destaque { padding: 48px 16px; }
 }
+
+/* =====================================================================
+   PAGINA INICIAL (classes "lp-"). Os paineis nao usam nada daqui.
+   ===================================================================== */
+.lp {
+  --coral: #e2705a;
+  --esmalte: #fbfdfc;
+  --titulo: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  background: var(--esmalte);
+}
+.lp h1, .lp h2 { font-family: var(--titulo); font-weight: 600; letter-spacing: -0.01em; }
+.lp h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 8px; }
+.lp .cabecalho { position: sticky; top: 0; z-index: 5; background: rgba(251, 253, 252, 0.92); backdrop-filter: blur(8px); }
+.lp .cabecalho-usuario a:not(.botao) { color: var(--tinta); }
+.lp .cabecalho-usuario a:not(.botao):hover { color: var(--verde); }
+
+/* ---------- Topo ---------- */
+.lp-topo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: 48px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 24px 56px;
+}
+.lp-topo h1 { font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.04; margin-bottom: 18px; text-wrap: balance; }
+.lp-topo-apoio { font-size: 1.15rem; max-width: 46ch; margin-bottom: 28px; }
+.lp-topo .destaque-botoes { justify-content: flex-start; }
+
+/* Cartao com exemplo de agenda */
+.lp-agenda {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 24px 48px -28px rgba(15, 118, 110, 0.45);
+  rotate: 1.5deg;
+}
+.lp-agenda-titulo { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--verde); margin-bottom: 14px; }
+.lp-agenda-titulo span { display: block; font-size: 1.05rem; text-transform: none; letter-spacing: 0; color: var(--tinta); margin-top: 2px; }
+.lp-agenda ul { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 8px; }
+.lp-agenda li { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 10px; font-size: 0.95rem; }
+.lp-agenda li strong { color: var(--tinta); font-variant-numeric: tabular-nums; }
+.lp-agenda .livre { background: var(--verde-claro); color: var(--verde-escuro); font-weight: 600; }
+.lp-agenda .ocupado { background: #f1f4f4; color: #7a8a8e; }
+.lp-agenda .ocupado strong { color: #7a8a8e; text-decoration: line-through; }
+.lp-agenda-nota { font-size: 0.85rem; margin: 0; }
+
+/* ---------- Secoes ---------- */
+.lp-secao { max-width: 1100px; margin: 0 auto; padding: 56px 24px; }
+.lp-secao-apoio { margin-bottom: 20px; }
+
+/* Servicos + odontograma */
+.lp-servicos { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 40px; align-items: center; }
+.lp-lista-servicos { display: grid; gap: 6px; }
+.lp-servico {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 1px 0 var(--linha);
+  background: none;
+  color: var(--tinta);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, padding-left 0.2s;
+}
+.lp-servico small { font-weight: 400; color: var(--texto); font-variant-numeric: tabular-nums; }
+.lp-servico:focus-visible { outline: 3px solid #5eead4; outline-offset: 1px; }
+.lp-servico-ativo { box-shadow: none; background: var(--verde-claro); border-color: #bfe3de; padding-left: 22px; color: var(--verde-escuro); }
+
+.lp-quadro {
+  background: linear-gradient(180deg, var(--verde-claro), #f3faf9);
+  border-radius: 24px;
+  padding: 24px 24px 28px;
+  text-align: center;
+}
+.lp-quadro-texto { min-height: 92px; }
+.lp-quadro-texto h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.lp-quadro-texto p { max-width: 40ch; margin: 0 auto; }
+
+.odontograma { width: 100%; max-width: 360px; height: auto; display: block; margin: 0 auto 8px; }
+.odontograma-rotulo { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; fill: #7fa7a2; }
+.dente {
+  fill: var(--branco);
+  stroke: #a9cfca;
+  stroke-width: 1.5;
+  transition: fill 0.35s, stroke 0.35s;
+  transition-delay: calc(var(--ordem) * 18ms);
+}
+.dente-ativo { stroke: var(--verde); stroke-width: 2; }
+.dente-avaliacao { fill: var(--branco); }
+.dente-limpeza { fill: #c9ece7; }
+.dente-ortodontia { fill: #e9f6f4; }
+.dente-clareamento { fill: #ffffff; stroke: var(--verde); filter: drop-shadow(0 0 5px rgba(15, 118, 110, 0.55)); }
+.dente-restauracao, .dente-implantes { fill: var(--coral); stroke: #b9513e; }
+.braquete { fill: var(--verde); }
+
+/* Como funciona: uma sequencia de verdade, por isso numerada */
+.lp-passos { list-style: none; counter-reset: passo; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.lp-passos li { counter-increment: passo; padding-top: 18px; border-top: 2px solid var(--verde); }
+.lp-passos li::before { content: counter(passo); display: block; font-family: var(--titulo); font-size: 2.4rem; line-height: 1; color: var(--verde); margin-bottom: 10px; }
+.lp-passos p { margin: 0; }
+
+/* Sobre nos + equipe */
+.lp-sobre { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 40px; align-items: start; }
+.lp-sobre p { font-size: 1.05rem; max-width: 60ch; }
+.lp-equipe { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.lp-equipe li { display: flex; align-items: center; gap: 14px; padding: 16px; background: var(--branco); border: 1px solid var(--linha); border-radius: 14px; }
+.lp-equipe strong { display: block; color: var(--tinta); }
+.lp-equipe span:not(.lp-avatar) { font-size: 0.9rem; }
+.lp-avatar { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: 50%; background: var(--verde); color: var(--branco); font-weight: 700; letter-spacing: 0.04em; }
+
+.lp .cartao { transition: translate 0.2s, box-shadow 0.2s; }
+.lp .cartao:hover { translate: 0 -3px; box-shadow: 0 14px 28px -20px rgba(15, 118, 110, 0.5); }
+.lp .rodape { background: var(--tinta); color: #c6d6d6; border: 0; margin-top: 32px; }
+
+/* ---------- Movimento ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada do topo ao carregar a pagina */
+  .lp-topo-texto > *, .lp-agenda { animation: subir 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .lp-topo-texto > :nth-child(2) { animation-delay: 0.08s; }
+  .lp-topo-texto > :nth-child(3) { animation-delay: 0.16s; }
+  .lp-topo-texto > :nth-child(4) { animation-delay: 0.24s; }
+  .lp-agenda { animation-delay: 0.3s; }
+
+  /* Secoes aparecem ao rolar. Navegador sem suporte mostra tudo normalmente. */
+  @supports (animation-timeline: view()) {
+    .revelar { animation: subir linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+  }
+}
+@keyframes subir {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (max-width: 820px) {
+  .lp-topo, .lp-servicos, .lp-sobre { grid-template-columns: 1fr; }
+  .lp-topo { padding-top: 40px; gap: 32px; }
+  .lp-agenda { rotate: none; }
+  .lp .cabecalho-usuario a:not(.botao) { display: none; }
+}
